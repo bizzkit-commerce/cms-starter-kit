@@ -48,6 +48,10 @@ A card containing the product picture, stock and price information stored in [Bi
 
 A collection of preselected products displayed in a carousel/slider arrangement. The component builds up from the component and API work present on `ProductCard`. When taking responsiveness, gestures, timers, etc. into consideration, sliders can get quite complicated to build, which aren't all considered in this implementation. It's then recommended that you build a more robust solution before taking it into production or use an 3rd-party library such as [Embla Carousel](https://www.npmjs.com/package/embla-carousel).
 
+[Go to source](./src/components/ProductSlider/index.ts)
+
 ### DynamicProductSlider
 
 Similar to `ProductSlider` except for the products being provided from a query instead of a predefined list. The user in Builder defines a set of parameters to be used for once the slider renders.
+
+[Go to source](./src/components/DynamicProductSlider/index.ts)
