@@ -1,0 +1,28 @@
+{
+    "name": "@bizzkit-commerce/cms-starter-kit",
+    "description": "Code examples for using Bizzkit CMS, DAM and Search applications",
+    "version": "1.0.0",
+    "main": "src/main.tsx",
+    "scripts": {
+        "start": "vite dev",
+        "build": "vite build",
+        "preview": "vite preview"
+    },
+    "author": "Bizzkit",
+    "license": "Apache-2.0",
+    "dependencies": {
+        "@builder.io/react": "5.0.4",
+        "classnames": "2.5.1",
+        "react": "18.3.1",
+        "react-dom": "18.3.1"
+    },
+    "devDependencies": {
+        "@types/node": "20.16.11",
+        "@types/react": "18.3.11",
+        "@types/react-dom": "18.3.0",
+        "@vitejs/plugin-react": "4.3.2",
+        "prettier-plugin-organize-imports": "4.1.0",
+        "typescript": "5.6.3",
+        "vite": "5.4.8"
+    }
+}

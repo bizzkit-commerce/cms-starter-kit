@@ -1,0 +1,37 @@
+:root {
+    /* Typography */
+    --font-size-h1: 3.2rem;
+    --font-size-h2: 2.4rem;
+    --font-size-h3: 1.8rem;
+    --font-size-h4: 1.4rem;
+    --font-size-h5: 1.2rem;
+    --font-size-body: 1rem;
+    --font-size-subtitle: 0.85rem;
+    --font-weight: 400;
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 2rem;
+
+    /* Breakpoints */
+    --mobile-min-width: 0;
+    --mobile-max-width: 640px;
+    --tablet-min-width: 641px;
+    --tablet-max-width: 991px;
+    --desktop-min-width: 992px;
+
+    /* Colors */
+    --color-background: #ffffff;
+    --color-text: #213547;
+    --color-primary: #535bf2;
+    --color-primary-light: #646cff;
+    --color-primary-dark: #3940c5;
+    --color-default: #e0e0e4;
+    --color-default-light: #f0f0f4;
+    --color-default-dark: #5f6368;
+
+    /* Other */
+    --border-radius: 5px;
+}

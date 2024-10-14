@@ -1,0 +1,9 @@
+{
+    "jsxSingleQuote": true,
+    "semi": false,
+    "singleQuote": true,
+    "useTabs": false,
+    "tabWidth": 4,
+    "endOfLine": "auto",
+    "plugins": ["prettier-plugin-organize-imports"]
+}
