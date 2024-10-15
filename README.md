@@ -8,7 +8,7 @@ Update the `.env` file with information associated to your environment:
 
 -   `VITE_BUILDER_API_KEY`: Your Builder.io space public API [(documentation)](https://www.builder.io/c/docs/using-your-api-key#finding-your-public-api-key).
 -   `VITE_DAM_URL`: The CDN URL for Bizzkit DAM. Can be found by calling `GET /api/_/settings/cdn` in your DAM API instance.
--   `VITE_SEARCH_URL`: The URL for Bizzkit Search API.
+-   `VITE_SEARCH_URL`: The URL for Bizzkit Ecommerce Search API.
 
 Make sure that your space in Builder has been [configured to use Bizzkit plugins](https://docs.bizzkit.com/content/for-developers/getting-started/#registering-plugins).
 

@@ -1,6 +1,6 @@
 {
     "name": "@bizzkit-commerce/cms-starter-kit",
-    "description": "Code examples for using Bizzkit CMS, DAM and Search applications",
+    "description": "Code examples for using Bizzkit CMS, DAM and Ecommerce Search applications",
     "version": "1.0.0",
     "main": "src/main.tsx",
     "scripts": {
