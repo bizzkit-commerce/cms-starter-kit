@@ -16,12 +16,6 @@ export const registerProductSlider = () => {
                 type: 'Bizzkit ECS Product List',
                 name: 'products',
             },
-            {
-                type: 'number',
-                name: 'productCount',
-                helperText: 'Number of products to show',
-                defaultValue: 6,
-            },
         ],
     })
 }
