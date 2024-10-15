@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    place-items: stretch;
+    gap: var(--spacing-md);
+    min-width: 320px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-sm);
+}
+
+@media only screen and (min-width: 641px) {
+    .container {
+        padding: var(--spacing-md);
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .container {
+        padding: var(--spacing-lg);
+    }
+}

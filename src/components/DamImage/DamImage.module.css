@@ -1,0 +1,36 @@
+.container {
+    width: 100%;
+    position: relative;
+    margin: 0;
+}
+
+.image {
+    width: 100%;
+    aspect-ratio: var(--mobile-aspect-ratio, initial);
+    object-fit: var(--object-fit, cover);
+    object-position: var(--object-position-x, initial)
+        var(--object-position-y, initial);
+}
+
+.children {
+    position: absolute;
+    inset: 0;
+}
+
+@media only screen and (min-width: 641px) {
+    .tablet-aspect-ratio {
+        aspect-ratio: var(
+            --tablet-aspect-ratio,
+            var(--mobile-aspect-ratio, initial)
+        );
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .desktop-aspect-ratio {
+        aspect-ratio: var(
+            --desktop-aspect-ratio,
+            var(--tablet-aspect-ratio, var(--mobile-aspect-ratio, initial))
+        );
+    }
+}
