@@ -22,7 +22,7 @@
 }
 
 .in-stock::before {
-    color: limegreen;
+    color: green;
 }
 
 .low-stock::before {

@@ -24,7 +24,8 @@
     fill: var(--color-default-light);
 }
 
-.container:hover > svg {
+.container:hover > svg,
+.container:focus > svg {
     background-color: var(--color-primary-light);
     border-color: var(--color-primary);
     fill: white;

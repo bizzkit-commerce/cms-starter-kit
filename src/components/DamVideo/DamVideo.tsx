@@ -5,6 +5,7 @@ import styles from './DamVideo.module.css'
 
 export type DamVideoProps = React.PropsWithChildren<{
     readonly video?: null | DamFile
+    readonly description?: null | string
     readonly posterImage?: null | DamFile
     readonly autoPlay?: null | boolean
     readonly controls?: null | boolean
@@ -39,6 +40,7 @@ export const DamVideo: React.FC<DamVideoProps> = (props) => {
             {...builderAttributes}
             key={0}
             className={videoClassNames}
+            aria-description={props.description ?? undefined}
             controls={props.controls ?? undefined}
             autoPlay={props.autoPlay ?? undefined}
             muted={props.muted ?? undefined}

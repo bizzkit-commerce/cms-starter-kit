@@ -26,6 +26,7 @@ export const ProductSliderBaseArrow: React.FC<ProductSliderBaseArrowProps> = ({
                 styles[`arrow-${direction}`],
                 className,
             )}
+            aria-label={direction === 'left' ? 'Scroll left' : 'Scroll right'}
             onClick={onClick}
             dangerouslySetInnerHTML={{
                 __html:

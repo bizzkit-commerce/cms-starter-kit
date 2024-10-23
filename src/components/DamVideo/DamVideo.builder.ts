@@ -16,6 +16,11 @@ export const registerDamVideo = (): void => {
                 required: true,
             },
             {
+                name: 'description',
+                type: 'string',
+                required: true,
+            },
+            {
                 name: 'posterImage',
                 type: 'Bizzkit DAM File',
                 required: false,

@@ -6,7 +6,7 @@ import { registerDynamicProductSlider } from './components/DynamicProductSlider'
 import { Page } from './components/Page'
 import { registerProductCard } from './components/ProductCard'
 import { registerProductSlider } from './components/ProductSlider'
-import './index.css'
+// import './index.css'
 
 builder.init(import.meta.env.VITE_BUILDER_API_KEY)
 registerDamImage()
