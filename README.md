@@ -44,6 +44,12 @@ A card containing the product picture, stock and price information stored in [Bi
 
 [Go to source](./src/components/ProductCard/index.ts)
 
+### ProductCatalogue
+
+A simplified product list component, where users can filter, sort and paginate on products stored in [Bizzkit Ecommerce Search](https://docs.bizzkit.com/ecommerce-search/).
+
+[Go to source](./src/components/ProductCatalogue/index.ts)
+
 ### ProductSlider
 
 A collection of preselected products displayed in a carousel/slider arrangement. The component builds up from the component and API work present on `ProductCard`. When taking responsiveness, gestures, timers, etc. into consideration, sliders can get quite complicated to build, which aren't all considered in this implementation. It's then recommended that you build a more robust solution before taking it into production or use an 3rd-party library such as [Embla Carousel](https://www.npmjs.com/package/embla-carousel).
