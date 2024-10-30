@@ -45,6 +45,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    text-wrap: balance;
     padding: 0 var(--spacing-md);
 }
 

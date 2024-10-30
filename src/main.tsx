@@ -5,6 +5,7 @@ import { registerDamVideo } from './components/DamVideo'
 import { registerDynamicProductSlider } from './components/DynamicProductSlider'
 import { Page } from './components/Page'
 import { registerProductCard } from './components/ProductCard'
+import { registerProductCatalogue } from './components/ProductCatalogue'
 import { registerProductSlider } from './components/ProductSlider'
 
 builder.init(import.meta.env.VITE_BUILDER_API_KEY)
@@ -13,6 +14,7 @@ registerDamVideo()
 registerProductCard()
 registerProductSlider()
 registerDynamicProductSlider()
+registerProductCatalogue()
 
 const root = ReactClient.createRoot(document.getElementById('main')!)
 

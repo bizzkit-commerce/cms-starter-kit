@@ -27,15 +27,15 @@ export const DynamicProductSlider: React.FC<DynamicProductSliderProps> = ({
                 return setProductInfo(null)
             }
 
-            setProductInfo(
-                await searchProducts({
-                    segmentId: products.segmentId,
-                    scopeId: products.scopeId,
-                    phrase: products.phrase,
-                    filters: products.filters,
-                    numberOfProducts: productCount ?? 6,
-                }),
-            )
+            const result = await searchProducts({
+                segmentId: products.segmentId,
+                scopeId: products.scopeId,
+                phrase: products.phrase,
+                filters: products.filters,
+                numberOfProducts: productCount ?? 6,
+            })
+
+            setProductInfo(result.products)
         })()
     }, [products, productCount])
 

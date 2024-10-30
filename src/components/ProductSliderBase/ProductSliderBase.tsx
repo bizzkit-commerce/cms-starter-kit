@@ -1,8 +1,10 @@
 import * as React from 'react'
+import chevronLeftIcon from '../../assets/chevron_left.svg?raw'
+import chevronRightIcon from '../../assets/chevron_right.svg?raw'
 import { Product } from '../../util/search'
+import { IconButton } from '../IconButton'
 import { ProductCardBase } from '../ProductCardBase'
 import styles from './ProductSliderBase.module.css'
-import { ProductSliderBaseArrow } from './ProductSliderBaseArrow'
 
 export interface ProductSliderBaseProps {
     readonly loading?: boolean
@@ -44,12 +46,14 @@ export const ProductSliderBase: React.FC<ProductSliderBaseProps> = ({
                     <header className={styles['slider-title']}>{title}</header>
                 )}
 
-                <ProductSliderBaseArrow
-                    direction='left'
+                <IconButton
+                    label='Scroll left'
+                    icon={chevronLeftIcon}
                     onClick={onArrowLeftClick}
                 />
-                <ProductSliderBaseArrow
-                    direction='right'
+                <IconButton
+                    label='Scroll right'
+                    icon={chevronRightIcon}
                     onClick={onArrowRightClick}
                 />
             </div>

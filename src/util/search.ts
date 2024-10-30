@@ -54,6 +54,11 @@ export interface RangeFilter {
     readonly to: number
 }
 
+export interface SortModel {
+    readonly key: string
+    readonly order: 'asc' | 'desc'
+}
+
 export const getProductById = async (
     productId: ProductId,
 ): Promise<null | Product> => {
@@ -139,18 +144,28 @@ export const getProductsById = async (
                 return []
 
             case 'fulfilled':
-                return response.value
+                return response.value.products
         }
     })
+}
+
+export interface SearchResult {
+    readonly products: readonly Product[]
+    readonly totalProducts: number
+    readonly originalPhrase: string
+    readonly usedPhrase: string
 }
 
 export const searchProducts = async (params: {
     readonly segmentId: string
     readonly scopeId: string
     readonly numberOfProducts: number
+    readonly offsetProducts?: number
     readonly phrase?: string
     readonly filters?: readonly FilterModel[]
-}): Promise<readonly Product[]> => {
+    readonly sort?: readonly SortModel[]
+    readonly abortSignal?: AbortSignal
+}): Promise<SearchResult> => {
     const url = new URL('/search', import.meta.env.VITE_SEARCH_URL)
     url.searchParams.append('api-version', '24.0')
 
@@ -188,15 +203,18 @@ export const searchProducts = async (params: {
             phrase: params.phrase,
             numberOfContent: 0,
             numberOfProducts: params.numberOfProducts,
+            offsetProducts: params.offsetProducts,
             filters,
+            sort: params.sort,
         }),
+        signal: params.abortSignal,
     })
 
     if (!response.ok) {
         throw new Error(response.statusText)
     }
 
-    const result: { products?: Product[] } = await response.json()
+    const result: SearchResult = await response.json()
 
-    return result.products ?? []
+    return result
 }
