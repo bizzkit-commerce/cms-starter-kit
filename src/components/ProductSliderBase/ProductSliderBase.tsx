@@ -47,12 +47,12 @@ export const ProductSliderBase: React.FC<ProductSliderBaseProps> = ({
                 )}
 
                 <IconButton
-                    label='Scroll right'
+                    label='Scroll left'
                     icon={chevronLeftIcon}
                     onClick={onArrowLeftClick}
                 />
                 <IconButton
-                    label='Scroll left'
+                    label='Scroll right'
                     icon={chevronRightIcon}
                     onClick={onArrowRightClick}
                 />
