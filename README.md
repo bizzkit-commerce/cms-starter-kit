@@ -46,7 +46,7 @@ A card containing the product picture, stock and price information stored in [Bi
 
 ### ProductCatalogue
 
-A simplified product list component, where users can filter, sort and paginate on products stored in [Bizzkit Ecommerce Search](https://docs.bizzkit.com/ecommerce-search/).
+A simplified product list component, where users can filter, sort and paginate on products stored in [Bizzkit Ecommerce Search](https://docs.bizzkit.com/ecommerce-search/). If a search phrase in the Products field in Builder, then the search function in the component is omitted.
 
 [Go to source](./src/components/ProductCatalogue/index.ts)
 
