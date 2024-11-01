@@ -20,8 +20,15 @@ export const ProductCatalogue: React.FC<ProductCatalogueProps> = ({
     const [page, setPage] = React.useState<number>(0)
     const [loading, setLoading] = React.useState(true)
     const [phraseInputValue, setPhraseInputValue] = React.useState('')
-    const phraseFilter = React.useDeferredValue(phraseInputValue)
     const [sorting, setSorting] = React.useState(Sorting.PriceAscending)
+
+    const phraseFilter = React.useDeferredValue(
+        // Use phrase set it the plugin if provided, otherwise use
+        // search field value
+        products?.phrase === undefined || products?.phrase === ''
+            ? phraseInputValue
+            : products.phrase,
+    )
 
     const [searchResult, setSearchResult] = React.useState<null | SearchResult>(
         null,
@@ -34,8 +41,9 @@ export const ProductCatalogue: React.FC<ProductCatalogueProps> = ({
     )
 
     React.useEffect((): void => {
+        setSearchResult(null)
         setPage(0)
-    }, [phraseFilter])
+    }, [phraseFilter, sorting, products])
 
     React.useEffect(() => {
         const abortController = new AbortController()
@@ -45,40 +53,46 @@ export const ProductCatalogue: React.FC<ProductCatalogueProps> = ({
 
             setLoading(true)
 
-            const newResult = await searchProducts({
-                phrase: phraseFilter,
-                segmentId: products.segmentId,
-                scopeId: products.scopeId,
-                numberOfProducts: actualPageSize,
-                offsetProducts: page * actualPageSize,
-                sort: [sortingToSortModel(sorting)],
-                abortSignal: abortController.signal,
-            })
+            try {
+                const newResult = await searchProducts({
+                    phrase: phraseFilter,
+                    segmentId: products.segmentId,
+                    scopeId: products.scopeId,
+                    numberOfProducts: actualPageSize,
+                    offsetProducts: page * actualPageSize,
+                    filters: products.filters,
+                    sort: [sortingToSortModel(sorting)],
+                    abortSignal: abortController.signal,
+                })
 
-            setSearchResult((currentResult) =>
-                currentResult === null
-                    ? newResult
-                    : {
-                          ...newResult,
-                          products: [
-                              ...currentResult.products,
-                              ...newResult.products,
-                          ],
-                      },
-            )
+                setSearchResult((currentResult) =>
+                    currentResult === null
+                        ? newResult
+                        : {
+                              ...newResult,
+                              products: [
+                                  ...currentResult.products,
+                                  ...newResult.products,
+                              ],
+                          },
+                )
+            } catch (error) {
+                if (error !== 'Cancelled') {
+                    console.error(error)
+                }
+            }
 
             setLoading(false)
         })()
 
         return () => {
-            abortController.abort()
+            abortController.abort('Cancelled')
         }
     }, [phraseFilter, sorting, page, products, actualPageSize])
 
     const onPhraseFilterInput = React.useCallback(
         (event: React.ChangeEvent<HTMLInputElement>): void => {
             setPhraseInputValue(event.target.value)
-            setSearchResult(null)
         },
         [],
     )
@@ -86,7 +100,6 @@ export const ProductCatalogue: React.FC<ProductCatalogueProps> = ({
     const onSortingChange = React.useCallback(
         (event: React.ChangeEvent<HTMLSelectElement>): void => {
             setSorting(event.target.value as Sorting)
-            setSearchResult(null)
         },
         [],
     )
@@ -98,14 +111,21 @@ export const ProductCatalogue: React.FC<ProductCatalogueProps> = ({
     return (
         <section className={styles['container']}>
             <div className={styles['filters']}>
-                <input
-                    aria-label='Search'
-                    type='text'
-                    placeholder='Search...'
-                    className={styles['search']}
-                    value={phraseFilter}
-                    onInput={onPhraseFilterInput}
-                />
+                {
+                    // Hide search input if search phrase has been provided
+                    // by the plugin
+                    (products?.phrase === undefined ||
+                        products?.phrase === '') && (
+                        <input
+                            aria-label='Search'
+                            type='text'
+                            placeholder='Search...'
+                            className={styles['search']}
+                            value={phraseFilter}
+                            onInput={onPhraseFilterInput}
+                        />
+                    )
+                }
 
                 <select
                     aria-label='Sorting'
@@ -127,11 +147,16 @@ export const ProductCatalogue: React.FC<ProductCatalogueProps> = ({
                         Array(
                             searchResult === null || page < pageCount - 1
                                 ? actualPageSize
-                                : searchResult.totalProducts -
-                                      searchResult.products.length,
+                                : Math.max(
+                                      searchResult.totalProducts -
+                                          searchResult.products.length,
+                                      0,
+                                  ),
                         ),
                     ).map((_, index) => (
-                        <ProductCardBase key={index} loading />
+                        <li key={index}>
+                            <ProductCardBase loading />
+                        </li>
                     ))}
 
                 {searchResult?.products.map((product, index) => {
@@ -156,9 +181,8 @@ export const ProductCatalogue: React.FC<ProductCatalogueProps> = ({
                         .reduce((value, result) => value + result, 0)
 
                     return (
-                        <li>
+                        <li key={index}>
                             <ProductCardBase
-                                key={product.id ?? index}
                                 title={product.name ?? undefined}
                                 imageUrl={imageUrl}
                                 price={lowestPrice}
