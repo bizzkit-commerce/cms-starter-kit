@@ -1,11 +1,13 @@
 import { Builder } from '@builder.io/react'
-import sellIcon from '../../assets/sell.svg?raw'
+import menuBookIcon from '../../assets/menu_book.svg'
 import { ProductCatalogue } from './ProductCatalogue'
 
-export const registerProductCatalogue = (): void => {
+export const registerProductCatalogue = (): string => {
+    const name = 'ProductCatalogue'
+
     Builder.registerComponent(ProductCatalogue, {
-        name: 'ProductCatalogue',
-        image: `data:image/svg+xml;base64,${btoa(sellIcon)}`,
+        name,
+        image: new URL(menuBookIcon, window.location.origin).href,
         inputs: [
             {
                 name: 'products',
@@ -20,4 +22,6 @@ export const registerProductCatalogue = (): void => {
             },
         ],
     })
+
+    return name
 }

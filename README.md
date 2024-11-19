@@ -61,3 +61,11 @@ A collection of preselected products displayed in a carousel/slider arrangement.
 Similar to `ProductSlider` except for the products being provided from a query instead of a predefined list. The user in Builder defines a set of parameters to be used for once the slider renders.
 
 [Go to source](./src/components/DynamicProductSlider/index.ts)
+
+## Styling
+
+The website uses the [Material UI](https://mui.com/material-ui/) as its design system. The library comes with a default set of supported breakpoints (screen sizes) that must [be set in Builder](https://www.builder.io/c/docs/customizable-breakpoints) with matching values so the design works properly:
+
+-   Desktop: **900** px and up
+-   Tablet: **600** px - **899** px
+-   Mobile: **599** px and below

@@ -1,11 +1,13 @@
 import { Builder } from '@builder.io/react'
-import viewCarouselIcon from '../../assets/view_carousel.svg?raw'
+import viewCarouselIcon from '../../assets/view_carousel.svg'
 import { DynamicProductSlider } from './DynamicProductSlider'
 
-export const registerDynamicProductSlider = () => {
+export const registerDynamicProductSlider = (): string => {
+    const name = 'DynamicProductSlider'
+
     Builder.registerComponent(DynamicProductSlider, {
-        name: 'DynamicProductSlider',
-        image: `data:image/svg+xml;base64,${btoa(viewCarouselIcon)}`,
+        name,
+        image: new URL(viewCarouselIcon, window.location.origin).href,
         inputs: [
             {
                 name: 'title',
@@ -24,4 +26,6 @@ export const registerDynamicProductSlider = () => {
             },
         ],
     })
+
+    return name
 }

@@ -1,3 +1,14 @@
+import {
+    Box,
+    Button,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    SelectChangeEvent,
+    TextField,
+    Typography,
+} from '@mui/material'
 import * as React from 'react'
 import {
     DynamicProductListModel,
@@ -6,7 +17,6 @@ import {
     SortModel,
 } from '../../util/search'
 import { ProductCardBase } from '../ProductCardBase'
-import styles from './ProductCatalogue.module.css'
 
 export interface ProductCatalogueProps {
     readonly products?: null | DynamicProductListModel
@@ -98,7 +108,7 @@ export const ProductCatalogue: React.FC<ProductCatalogueProps> = ({
     )
 
     const onSortingChange = React.useCallback(
-        (event: React.ChangeEvent<HTMLSelectElement>): void => {
+        (event: SelectChangeEvent<Sorting>): void => {
             setSorting(event.target.value as Sorting)
         },
         [],
@@ -109,39 +119,81 @@ export const ProductCatalogue: React.FC<ProductCatalogueProps> = ({
     }, [])
 
     return (
-        <section className={styles['container']}>
-            <div className={styles['filters']}>
+        <Box sx={{ mb: 4 }}>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    gap: 2,
+                    marginBottom: 3,
+                }}
+            >
                 {
                     // Hide search input if search phrase has been provided
                     // by the plugin
                     (products?.phrase === undefined ||
                         products?.phrase === '') && (
-                        <input
-                            aria-label='Search'
-                            type='text'
-                            placeholder='Search...'
-                            className={styles['search']}
+                        <TextField
+                            label='Search'
                             value={phraseFilter}
                             onInput={onPhraseFilterInput}
+                            sx={(theme) => ({
+                                width: '100%',
+                                [theme.breakpoints.up('md')]: {
+                                    width: '400px',
+                                },
+                            })}
                         />
                     )
                 }
 
-                <select
-                    aria-label='Sorting'
-                    value={sorting}
-                    onChange={onSortingChange}
-                    className={styles['sorting']}
+                <FormControl
+                    sx={(theme) => ({
+                        marginLeft: 'auto',
+                        width: '100%',
+                        [theme.breakpoints.up('md')]: {
+                            width: '300px',
+                        },
+                    })}
                 >
-                    <option value={Sorting.PriceAscending}>
-                        Price - ascending
-                    </option>
-                    <option value={Sorting.PriceDescending}>
-                        Price - descending
-                    </option>
-                </select>
-            </div>
-            <ol aria-label='Products' className={styles['products']}>
+                    <InputLabel id='sorting-label'>Sorting</InputLabel>
+                    <Select
+                        id='sorting-select'
+                        labelId='sorting-label'
+                        label='Sorting'
+                        value={sorting}
+                        onChange={onSortingChange}
+                    >
+                        <MenuItem value={Sorting.PriceAscending}>
+                            Price - ascending
+                        </MenuItem>
+                        <MenuItem value={Sorting.PriceDescending}>
+                            Price - descending
+                        </MenuItem>
+                    </Select>
+                </FormControl>
+            </Box>
+            <Box
+                component='ol'
+                aria-label='Products'
+                sx={(theme) => ({
+                    listStyle: 'none',
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(2, 1fr)',
+                    gridAutoRows: 'auto',
+                    gap: 2,
+                    padding: 0,
+                    marginBottom: 3,
+                    [theme.breakpoints.up('md')]: {
+                        gridTemplateColumns: 'repeat(3, 1fr)',
+                    },
+                    [theme.breakpoints.up('lg')]: {
+                        gridTemplateColumns: 'repeat(4, 1fr)',
+                    },
+                })}
+            >
                 {loading &&
                     Array.from(
                         Array(
@@ -187,24 +239,39 @@ export const ProductCatalogue: React.FC<ProductCatalogueProps> = ({
                                 imageUrl={imageUrl}
                                 price={lowestPrice}
                                 stock={combinedStock}
+                                sx={{
+                                    height: '100%',
+                                }}
                             />
                         </li>
                     )
                 })}
-            </ol>
-            <div role='navigation' className={styles['navigation']}>
-                <p>
+            </Box>
+            <Box
+                role='navigation'
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: 2,
+                }}
+            >
+                <Typography>
                     Displaying <b>{searchResult?.products.length ?? '...'}</b>{' '}
                     out of <b>{searchResult?.totalProducts ?? '...'}</b>{' '}
                     products
-                </p>
+                </Typography>
                 {page < pageCount - 1 && (
-                    <button type='button' onClick={onMoreClick}>
+                    <Button
+                        type='button'
+                        variant='outlined'
+                        onClick={onMoreClick}
+                    >
                         Show more products
-                    </button>
+                    </Button>
                 )}
-            </div>
-        </section>
+            </Box>
+        </Box>
     )
 }
 

@@ -1,11 +1,13 @@
 import { Builder } from '@builder.io/react'
-import sellIcon from '../../assets/sell.svg?raw'
+import sellIcon from '../../assets/sell.svg'
 import { ProductCard } from './ProductCard'
 
-export const registerProductCard = (): void => {
+export const registerProductCard = (): string => {
+    const name = 'ProductCard'
+
     Builder.registerComponent(ProductCard, {
-        name: 'ProductCard',
-        image: `data:image/svg+xml;base64,${btoa(sellIcon)}`,
+        name,
+        image: new URL(sellIcon, window.location.origin).href,
         inputs: [
             {
                 name: 'product',
@@ -14,4 +16,6 @@ export const registerProductCard = (): void => {
             },
         ],
     })
+
+    return name
 }

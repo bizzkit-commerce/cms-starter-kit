@@ -1,7 +1,6 @@
-import classNames from 'classnames'
+import { Box } from '@mui/material'
 import * as React from 'react'
 import { DamFile, getDamImageUrl, getDamVideoUrl } from '../../util/dam'
-import styles from './DamVideo.module.css'
 
 export type DamVideoProps = React.PropsWithChildren<{
     readonly video?: null | DamFile
@@ -11,7 +10,7 @@ export type DamVideoProps = React.PropsWithChildren<{
     readonly controls?: null | boolean
     readonly muted?: null | boolean
     readonly loop?: null | boolean
-    readonly videoFit?: null | string
+    readonly videoFit?: null | 'contain' | 'cover'
     readonly videoPosition?: null | {
         readonly x?: null | number
         readonly y?: null | number
@@ -30,16 +29,24 @@ export const DamVideo: React.FC<DamVideoProps> = (props) => {
             ? null
             : getDamVideoUrl(props.video)
 
-    const videoClassNames =
-        props.children === undefined
-            ? classNames(builderClassName, styles['video'])
-            : classNames(styles['video'])
+    const objectPositionX =
+        typeof props.videoPosition?.x === 'number'
+            ? `${props.videoPosition.x}%`
+            : 'initial'
+
+    const objectPositionY =
+        typeof props.videoPosition?.y === 'number'
+            ? `${props.videoPosition.y}%`
+            : 'initial'
 
     const video = (
-        <video
+        <Box
+            component='video'
             {...builderAttributes}
             key={0}
-            className={videoClassNames}
+            className={
+                props.children === undefined ? builderClassName : undefined
+            }
             aria-description={props.description ?? undefined}
             controls={props.controls ?? undefined}
             autoPlay={props.autoPlay ?? undefined}
@@ -50,20 +57,12 @@ export const DamVideo: React.FC<DamVideoProps> = (props) => {
                     ? undefined
                     : getDamImageUrl(props.posterImage, '_medium-preview')
             }
-            style={
-                {
-                    '--object-fit': props.videoFit,
-                    '--object-position-x':
-                        typeof props.videoPosition?.x === 'number'
-                            ? `${props.videoPosition.x}%`
-                            : undefined,
-                    '--object-position-y':
-                        typeof props.videoPosition?.y === 'number'
-                            ? `${props.videoPosition.y}%`
-                            : undefined,
-                    '--aspect-ratio': props.aspectRatio,
-                } as React.CSSProperties
-            }
+            sx={{
+                width: '100%',
+                aspectRatio: props.aspectRatio,
+                objectFit: props.videoFit ?? 'cover',
+                objectPosition: `${objectPositionX} ${objectPositionY}`,
+            }}
         >
             {videoUrl !== null && (
                 <>
@@ -77,7 +76,7 @@ export const DamVideo: React.FC<DamVideoProps> = (props) => {
                     </p>
                 </>
             )}
-        </video>
+        </Box>
     )
 
     if (props.children === undefined) {
@@ -85,13 +84,26 @@ export const DamVideo: React.FC<DamVideoProps> = (props) => {
     }
 
     return (
-        <figure
+        <Box
+            component='figure'
             {...builderAttributes}
             key={0}
-            className={classNames(builderClassName, styles['container'])}
+            className={builderClassName}
+            sx={{
+                position: 'relative',
+                margin: 0,
+                width: '100%',
+            }}
         >
             {video}
-            <div className={styles['children']}>{props.children}</div>
-        </figure>
+            <Box
+                sx={{
+                    position: 'absolute',
+                    inset: 0,
+                }}
+            >
+                {props.children}
+            </Box>
+        </Box>
     )
 }

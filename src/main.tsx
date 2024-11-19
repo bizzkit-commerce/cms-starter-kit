@@ -1,21 +1,27 @@
-import { builder } from '@builder.io/react'
+import { GlobalStyles, ThemeProvider } from '@mui/material'
+import CssBaseline from '@mui/material/CssBaseline'
 import * as ReactClient from 'react-dom/client'
-import { registerDamImage } from './components/DamImage'
-import { registerDamVideo } from './components/DamVideo'
-import { registerDynamicProductSlider } from './components/DynamicProductSlider'
 import { Page } from './components/Page'
-import { registerProductCard } from './components/ProductCard'
-import { registerProductCatalogue } from './components/ProductCatalogue'
-import { registerProductSlider } from './components/ProductSlider'
+import { initBuilder } from './util/builder'
+import theme from './util/theme'
 
-builder.init(import.meta.env.VITE_BUILDER_API_KEY)
-registerDamImage()
-registerDamVideo()
-registerProductCard()
-registerProductSlider()
-registerDynamicProductSlider()
-registerProductCatalogue()
+initBuilder()
 
 const root = ReactClient.createRoot(document.getElementById('main')!)
 
-root.render(<Page />)
+root.render(
+    <ThemeProvider theme={theme}>
+        <CssBaseline enableColorScheme />
+        <GlobalStyles
+            styles={{
+                h1: theme.typography.h1,
+                h2: theme.typography.h2,
+                h3: theme.typography.h3,
+                h4: theme.typography.h4,
+                h5: theme.typography.h5,
+                h6: theme.typography.h6,
+            }}
+        />
+        <Page />
+    </ThemeProvider>,
+)

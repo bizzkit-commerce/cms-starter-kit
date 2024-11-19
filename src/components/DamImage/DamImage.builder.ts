@@ -1,11 +1,13 @@
 import { Builder, withChildren } from '@builder.io/react'
-import photoIcon from '../../assets/photo.svg?raw'
+import photoIcon from '../../assets/photo.svg'
 import { DamImage } from './DamImage'
 
-export const registerDamImage = (): void => {
+export const registerDamImage = (): string => {
+    const name = 'DAMImage'
+
     Builder.registerComponent(withChildren(DamImage), {
         name: 'DAMImage',
-        image: `data:image/svg+xml;base64,${btoa(photoIcon)}`,
+        image: new URL(photoIcon, window.location.origin).href,
         noWrap: true,
         canHaveChildren: true,
         inputs: [
@@ -107,4 +109,6 @@ export const registerDamImage = (): void => {
             },
         ],
     })
+
+    return name
 }

@@ -1,9 +1,16 @@
-import classNames from 'classnames'
+import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked'
+import {
+    Card,
+    CardContent,
+    CardMedia,
+    Skeleton,
+    SxProps,
+    Theme,
+    Typography,
+} from '@mui/material'
 import * as React from 'react'
 import brokenImageIcon from '../../assets/broken_image.svg'
 import photoIcon from '../../assets/photo.svg'
-import styles from './ProductCardBase.module.css'
-import { ProductCardBaseSkeleton } from './ProductCardBaseSkeleton'
 
 export interface ProductCardBase {
     readonly loading?: boolean
@@ -11,7 +18,7 @@ export interface ProductCardBase {
     readonly imageUrl?: string
     readonly stock?: number
     readonly price?: number
-    readonly className?: string
+    readonly sx?: SxProps<Theme>
 }
 
 export const ProductCardBase: React.FC<ProductCardBase> = ({
@@ -20,7 +27,7 @@ export const ProductCardBase: React.FC<ProductCardBase> = ({
     imageUrl = photoIcon,
     stock = 0,
     price,
-    className,
+    sx,
 }) => {
     const [actualImageUrl, setActualImageUrl] = React.useState<string>(imageUrl)
 
@@ -33,43 +40,73 @@ export const ProductCardBase: React.FC<ProductCardBase> = ({
     }, [imageUrl])
 
     if (loading) {
-        return <ProductCardBaseSkeleton className={className} />
+        return (
+            <Card sx={sx}>
+                <CardMedia>
+                    <Skeleton
+                        variant='rectangular'
+                        height='auto'
+                        width='100%'
+                        sx={{ aspectRatio: 1 }}
+                    />
+                </CardMedia>
+                <CardContent>
+                    <Typography gutterBottom variant='h5' component='div'>
+                        <Skeleton />
+                    </Typography>
+                    <Typography variant='body1' component='div'>
+                        <Skeleton />
+                    </Typography>
+                </CardContent>
+            </Card>
+        )
     }
 
+    const stockLabel =
+        stock === 0 ? 'Sold out' : stock > 10 ? 'In stock' : 'Few remaining'
+
     return (
-        <article className={classNames(styles['container'], className)}>
-            <div
-                className={classNames(styles['stock'], {
-                    [styles['in-stock'] ?? '']: stock > 0,
-                    [styles['low-stock'] ?? '']: stock < 10,
-                    [styles['sold-out'] ?? '']: stock === 0,
-                })}
-            >
-                {stock === 0
-                    ? 'Sold out'
-                    : stock > 10
-                      ? 'In stock'
-                      : 'Few remaining'}
-            </div>
-            <img
-                className={styles['image']}
-                src={actualImageUrl}
-                alt={title}
+        <Card sx={sx}>
+            <CardMedia
+                title={title}
+                image={actualImageUrl}
                 onError={onImageError}
-            />
-            <div className={styles['label']}>
-                <header className={styles['title']}>{title}</header>
+                sx={{
+                    aspectRatio: 1,
+                    backgroundColor: (theme) => theme.palette.grey[50],
+                    objectFit: 'contain',
+                }}
+            >
+                <Typography component='div' variant='subtitle2' sx={{ p: 2 }}>
+                    <RadioButtonCheckedIcon
+                        color={
+                            stock === 0
+                                ? 'error'
+                                : stock < 10
+                                  ? 'warning'
+                                  : 'success'
+                        }
+                        sx={{
+                            verticalAlign: 'bottom',
+                        }}
+                    />{' '}
+                    {stockLabel}
+                </Typography>
+            </CardMedia>
+            <CardContent>
+                <Typography gutterBottom variant='h5' component='div'>
+                    {title}
+                </Typography>
                 {price !== undefined && (
-                    <p>
-                        from{' '}
-                        <strong>
-                            {/* Search price decimals are reported as integer */}
-                            {priceFormat.format(price / 100)}
-                        </strong>
-                    </p>
+                    <Typography
+                        variant='body1'
+                        sx={{ color: 'text.secondary' }}
+                    >
+                        from <strong>{priceFormat.format(price / 200)}</strong>
+                    </Typography>
                 )}
-            </div>
-        </article>
+            </CardContent>
+        </Card>
     )
 }
 

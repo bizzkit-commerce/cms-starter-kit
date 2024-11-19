@@ -1,11 +1,13 @@
 import { Builder, withChildren } from '@builder.io/react'
-import smartDisplayIcon from '../../assets/smart_display.svg?raw'
+import smartDisplayIcon from '../../assets/smart_display.svg'
 import { DamVideo } from './DamVideo'
 
-export const registerDamVideo = (): void => {
+export const registerDamVideo = (): string => {
+    const name = 'DAMVideo'
+
     Builder.registerComponent(withChildren(DamVideo), {
         name: 'DAMVideo',
-        image: `data:image/svg+xml;base64,${btoa(smartDisplayIcon)}`,
+        image: new URL(smartDisplayIcon, window.location.origin).href,
         noWrap: true,
         canHaveChildren: true,
 
@@ -104,4 +106,6 @@ export const registerDamVideo = (): void => {
             },
         ],
     })
+
+    return name
 }

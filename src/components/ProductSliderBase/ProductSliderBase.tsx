@@ -1,10 +1,9 @@
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIosNew'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import { Box, IconButton, SxProps, Theme, Typography } from '@mui/material'
 import * as React from 'react'
-import chevronLeftIcon from '../../assets/chevron_left.svg?raw'
-import chevronRightIcon from '../../assets/chevron_right.svg?raw'
 import { Product } from '../../util/search'
-import { IconButton } from '../IconButton'
 import { ProductCardBase } from '../ProductCardBase'
-import styles from './ProductSliderBase.module.css'
 
 export interface ProductSliderBaseProps {
     readonly loading?: boolean
@@ -39,32 +38,68 @@ export const ProductSliderBase: React.FC<ProductSliderBaseProps> = ({
         })
     }, [])
 
+    const productCardSx: SxProps<Theme> = (theme) => ({
+        minWidth: '50%',
+        [theme.breakpoints.up('md')]: {
+            minWidth: 'calc(100% / 3)',
+        },
+        [theme.breakpoints.up('lg')]: {
+            minWidth: '25%',
+        },
+    })
+
     return (
-        <section className={styles['container']}>
-            <div className={styles['slider-header']}>
+        <Box
+            component='section'
+            sx={{
+                position: 'relative',
+                boxSizing: 'border-box',
+                width: '100%',
+            }}
+        >
+            <Box
+                sx={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr auto auto',
+                    gridTemplateRows: 'auto',
+                    gridTemplateAreas: '"title arrow-left arrow-right"',
+                    gap: 1,
+                    alignItems: 'center',
+                    paddingY: 3,
+                    paddingX: 2,
+                }}
+            >
                 {title !== undefined && (
-                    <header className={styles['slider-title']}>{title}</header>
+                    <Typography variant='h4'>{title}</Typography>
                 )}
 
+                <IconButton aria-label='Scroll left' onClick={onArrowLeftClick}>
+                    <ArrowBackIosIcon />
+                </IconButton>
                 <IconButton
-                    label='Scroll left'
-                    icon={chevronLeftIcon}
-                    onClick={onArrowLeftClick}
-                />
-                <IconButton
-                    label='Scroll right'
-                    icon={chevronRightIcon}
+                    aria-label='Scroll right'
                     onClick={onArrowRightClick}
-                />
-            </div>
+                >
+                    <ArrowForwardIosIcon />
+                </IconButton>
+            </Box>
 
-            <div className={styles['slider']} ref={sliderRef}>
+            <Box
+                ref={sliderRef}
+                sx={{
+                    gridArea: 'slider',
+                    display: 'flex',
+                    gap: 2,
+                    padding: 1,
+                    overflowX: 'hidden',
+                }}
+            >
                 {loading &&
-                    [...Array(skeletonCount ?? 6)].map((_, index) => (
+                    Array.from(Array(skeletonCount ?? 6)).map((_, index) => (
                         <ProductCardBase
                             key={index}
-                            className={styles['product']}
                             loading={true}
+                            sx={productCardSx}
                         />
                     ))}
 
@@ -95,7 +130,7 @@ export const ProductSliderBase: React.FC<ProductSliderBaseProps> = ({
                         return (
                             <ProductCardBase
                                 key={index}
-                                className={styles['product']}
+                                sx={productCardSx}
                                 title={product.name ?? undefined}
                                 imageUrl={imageUrl}
                                 price={lowestPrice}
@@ -103,7 +138,7 @@ export const ProductSliderBase: React.FC<ProductSliderBaseProps> = ({
                             />
                         )
                     })}
-            </div>
-        </section>
+            </Box>
+        </Box>
     )
 }
