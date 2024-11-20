@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material'
 
-export default createTheme({
+export const theme = createTheme({
     palette: {
         primary: {
             main: '#1E2B56',
@@ -53,3 +53,99 @@ export default createTheme({
         },
     },
 })
+
+/**
+ * A theme color
+ * @example
+ * {
+ *     displayName: 'primary',
+ *     cssVariableName: '--color-primary',
+ *     value: '#f81384'
+ * }
+ */
+export interface Color {
+    readonly displayName: string
+    readonly cssVariableName: string
+    readonly value: string
+}
+
+/**
+ * Recursively extracts name-value pairs from MUI theme's palette
+ */
+const getColorVariables = (
+    paletteEntries: [string, unknown][] = Object.entries(theme.palette),
+): readonly Color[] => {
+    return paletteEntries
+        .flatMap(toColorVariable)
+        .sort((a, b) => a.displayName.localeCompare(b.displayName))
+}
+
+const toColorVariable = ([name, value]: [
+    string,
+    unknown,
+]): readonly Color[] => {
+    switch (typeof value) {
+        /**
+         * A value like '#4c4c4c'
+         */
+        case 'string':
+            return CSS.supports('color', value)
+                ? [
+                      {
+                          displayName: name,
+                          cssVariableName: `--color-${name.replaceAll('.', '-')}`,
+                          value,
+                      },
+                  ]
+                : []
+
+        /**
+         * An object like { main: '#735313', dark: '#131115' }
+         */
+        case 'object':
+            return getColorVariables(
+                Object.entries(value ?? {}).map(([propName, propValue]) => [
+                    `${name}.${propName}`,
+                    propValue,
+                ]),
+            )
+
+        default:
+            return []
+    }
+}
+
+export const colors = getColorVariables()
+
+/**
+ * A theme spacing size
+ * @example
+ * {
+ *     displayName: 'md',
+ *     cssVariableName: '--spacing-md',
+ *     value: '12px'
+ * }
+ */
+export interface Spacing {
+    readonly displayName: string
+    readonly cssVariableName: string
+    readonly value: string
+}
+
+const getSpacingVariables = (): readonly Spacing[] => {
+    const spacing = [
+        ['xs', 1],
+        ['sm', 2],
+        ['md', 3],
+        ['lg', 4],
+        ['xl', 5],
+    ] as const
+
+    return spacing.map(([name, size]) => ({
+        displayName: name,
+        cssVariableName: `--spacing-${name}`,
+        value: theme.spacing(size),
+    }))
+}
+
+export const spacing = getSpacingVariables()

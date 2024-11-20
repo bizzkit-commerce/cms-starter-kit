@@ -1,9 +1,10 @@
 import { GlobalStyles, ThemeProvider } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline'
 import * as ReactClient from 'react-dom/client'
+import { CssVariables } from './components/CssVariables'
 import { Page } from './components/Page'
 import { initBuilder } from './util/builder'
-import theme from './util/theme'
+import { theme } from './util/theme'
 
 initBuilder()
 
@@ -12,6 +13,7 @@ const root = ReactClient.createRoot(document.getElementById('main')!)
 root.render(
     <ThemeProvider theme={theme}>
         <CssBaseline enableColorScheme />
+        <CssVariables />
         <GlobalStyles
             styles={{
                 h1: theme.typography.h1,
@@ -22,6 +24,7 @@ root.render(
                 h6: theme.typography.h6,
             }}
         />
+        <CssVariables />
         <Page />
     </ThemeProvider>,
 )

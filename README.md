@@ -64,8 +64,22 @@ Similar to `ProductSlider` except for the products being provided from a query i
 
 ## Styling
 
-The website uses the [Material UI](https://mui.com/material-ui/) as its design system. The library comes with a default set of supported breakpoints (screen sizes) that must [be set in Builder](https://www.builder.io/c/docs/customizable-breakpoints) with matching values so the design works properly:
+The website uses the [Material UI](https://mui.com/material-ui/) as its design system, while custom styling is defined using the library's own [sx](https://mui.com/system/getting-started/the-sx-prop/) property.
+
+### Breakpoints
+
+The breakpoints (screen sizes) defined in Material UI must [be set with matching values in Builder](https://www.builder.io/c/docs/customizable-breakpoints) for a consistent user experience:
 
 -   Desktop: **900** px and up
 -   Tablet: **600** px - **899** px
 -   Mobile: **599** px and below
+
+These are just default values, and can be [customized](https://mui.com/material-ui/customization/theming) if necessary. The matching values should then be updated in Builder afterwards.
+
+[Go to source](./src/util/theme.ts)
+
+### Design tokens
+
+The project exports the theme values used with Material UI into [Builder design tokens](https://www.builder.io/c/docs/design-tokens). This helps achieving consistency between components implemented in the project and content created in Builder.
+
+[Go to source](./src/util/builder.ts)
