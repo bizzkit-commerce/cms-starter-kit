@@ -62,6 +62,12 @@ Similar to `ProductSlider` except for the products being provided from a query i
 
 [Go to source](./src/components/DynamicProductSlider/index.ts)
 
+## Structured data
+
+Structured data is another way of working with Content in Builder. In short, it enables you to store reusable data in Builder without constraining it to a specific design or page. For more detail, see Builder's [docs](https://www.builder.io/c/docs/integrate-cms-data) or [explanation](https://www.builder.io/m/explainers/structured-data).
+
+[Go to source](./src/components/Usp/Usp.tsx)
+
 ## Styling
 
 The website uses the [Material UI](https://mui.com/material-ui/) as its design system, while custom styling is defined using the library's own [sx](https://mui.com/system/getting-started/the-sx-prop/) property.
