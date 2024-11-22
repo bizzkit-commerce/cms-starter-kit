@@ -1,10 +1,11 @@
 import { BuilderComponent, builder, useIsPreviewing } from '@builder.io/react'
+import { BuilderContent } from '@builder.io/sdk'
 import { Typography } from '@mui/material'
 import Container from '@mui/material/Container'
 import * as React from 'react'
+import { Helmet } from 'react-helmet-async'
+import { SeoMetadata } from '../SeoMetadata'
 import { Usp } from '../Usp'
-
-type BuilderContent = React.ComponentProps<typeof BuilderComponent>['content']
 
 export const Page: React.FC = () => {
     const isPreviewingInBuilder = useIsPreviewing()
@@ -13,31 +14,31 @@ export const Page: React.FC = () => {
 
     React.useEffect(() => {
         async function fetchContent(): Promise<void> {
-            const content = await builder
+            const content: undefined | BuilderContent = await builder
                 .get('page', {
                     url: window.location.pathname,
                 })
                 .promise()
 
             setContent(content)
-            setNotFound(!content)
-
-            // if the page title is found,
-            // set the document title
-            if (content?.data.title) {
-                document.title = content.data.title
-            }
+            setNotFound(content === undefined)
         }
 
-        fetchContent()
+        void fetchContent()
     }, [window.location.pathname])
 
     return (
         <>
+            <SeoMetadata content={content} />
+            <Helmet>
+                <title>
+                    {content?.data?.['title'] ?? 'Bizzkit CMS Starter Kit'}
+                </title>
+            </Helmet>
             <Usp />
             <Container>
                 <Typography variant='h1' sx={{ my: 4 }}>
-                    Bizzkit Starter Kit
+                    Bizzkit CMS Starter Kit
                 </Typography>
                 {notFound && !isPreviewingInBuilder && (
                     <Typography variant='body1'>Not found</Typography>

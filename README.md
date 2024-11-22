@@ -83,3 +83,9 @@ These are just default values, and can be [customized](https://mui.com/material-
 The project exports the theme values used with Material UI into [Builder design tokens](https://www.builder.io/c/docs/design-tokens). This helps achieving consistency between components implemented in the project and content created in Builder.
 
 [Go to source](./src/util/builder.ts)
+
+## SEO
+
+Some basic search engine optimizations can be achieved by adding the appropriate [meta tags](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta) to the `<head>` element, such as description, keywords and open graph fields. This example extends the `Page` model in Builder with these fields that can be populated by content creators themselves, which then are rendered using the `<SeoMetadata>` component.
+
+[Go to source](./src/components/SeoMetadata/index.ts)
