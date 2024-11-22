@@ -2,6 +2,7 @@ import { BuilderComponent, builder, useIsPreviewing } from '@builder.io/react'
 import { Typography } from '@mui/material'
 import Container from '@mui/material/Container'
 import * as React from 'react'
+import { Usp } from '../Usp'
 
 type BuilderContent = React.ComponentProps<typeof BuilderComponent>['content']
 
@@ -32,16 +33,19 @@ export const Page: React.FC = () => {
     }, [window.location.pathname])
 
     return (
-        <Container>
-            <Typography variant='h1' sx={{ my: 4 }}>
-                Bizzkit Starter Kit
-            </Typography>
-            {notFound && !isPreviewingInBuilder && (
-                <Typography variant='body1'>Not found</Typography>
-            )}
-            {(!notFound || isPreviewingInBuilder) && (
-                <BuilderComponent model='page' content={content} />
-            )}
-        </Container>
+        <>
+            <Usp />
+            <Container>
+                <Typography variant='h1' sx={{ my: 4 }}>
+                    Bizzkit Starter Kit
+                </Typography>
+                {notFound && !isPreviewingInBuilder && (
+                    <Typography variant='body1'>Not found</Typography>
+                )}
+                {(!notFound || isPreviewingInBuilder) && (
+                    <BuilderComponent model='page' content={content} />
+                )}
+            </Container>
+        </>
     )
 }
