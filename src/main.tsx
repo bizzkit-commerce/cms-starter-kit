@@ -3,7 +3,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import * as ReactClient from 'react-dom/client'
 import { HelmetProvider } from 'react-helmet-async'
 import { CssVariables } from './components/CssVariables'
-import { Page } from './components/Page'
+import { Layout } from './components/Layout'
 import { initBuilder } from './util/builder'
 import { theme } from './util/theme'
 
@@ -27,7 +27,7 @@ root.render(
         />
         <CssVariables />
         <HelmetProvider>
-            <Page />
+            <Layout />
         </HelmetProvider>
     </ThemeProvider>,
 )
