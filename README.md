@@ -62,6 +62,12 @@ Similar to `ProductSlider` except for the products being provided from a query i
 
 [Go to source](./src/components/DynamicProductSlider/index.ts)
 
+## Sections
+
+Sections allows you to create reusable content across multiple pages, such as a header. They can be targeted just like pages. For more detail, see Builder's [docs](https://www.builder.io/c/docs/integrate-section-building).
+
+[Go to source](./src/components/Header/Header.tsx)
+
 ## Structured data
 
 Structured data is another way of working with Content in Builder. In short, it enables you to store reusable data in Builder without constraining it to a specific design or page. For more detail, see Builder's [docs](https://www.builder.io/c/docs/integrate-cms-data) or [explanation](https://www.builder.io/m/explainers/structured-data).

@@ -5,7 +5,6 @@ import Container from '@mui/material/Container'
 import * as React from 'react'
 import { Helmet } from 'react-helmet-async'
 import { SeoMetadata } from '../SeoMetadata'
-import { Usp } from '../Usp'
 
 export const Page: React.FC = () => {
     const isPreviewingInBuilder = useIsPreviewing()
@@ -35,11 +34,7 @@ export const Page: React.FC = () => {
                     {content?.data?.['title'] ?? 'Bizzkit CMS Starter Kit'}
                 </title>
             </Helmet>
-            <Usp />
             <Container>
-                <Typography variant='h1' sx={{ my: 4 }}>
-                    Bizzkit CMS Starter Kit
-                </Typography>
                 {notFound && !isPreviewingInBuilder && (
                     <Typography variant='body1'>Not found</Typography>
                 )}
