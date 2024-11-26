@@ -4,6 +4,7 @@ import * as ReactClient from 'react-dom/client'
 import { HelmetProvider } from 'react-helmet-async'
 import { CssVariables } from './components/CssVariables'
 import { Layout } from './components/Layout'
+import { Page } from './components/Page'
 import { initBuilder } from './util/builder'
 import { theme } from './util/theme'
 
@@ -27,7 +28,9 @@ root.render(
         />
         <CssVariables />
         <HelmetProvider>
-            <Layout />
+            <Layout>
+                <Page />
+            </Layout>
         </HelmetProvider>
     </ThemeProvider>,
 )

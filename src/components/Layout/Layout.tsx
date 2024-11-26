@@ -1,15 +1,15 @@
 import { Divider } from '@mui/material'
+import { PropsWithChildren } from 'react'
 import { Header } from '../Header'
-import { Page } from '../Page'
 import { Usp } from '../Usp'
 
-export const Layout: React.FC = () => {
+export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
     return (
         <>
             <Usp />
             <Header />
             <Divider />
-            <Page />
+            {children}
         </>
     )
 }
