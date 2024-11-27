@@ -16,6 +16,13 @@ steps:
           workingDir: /
 
     - task: Npm@1
+      displayName: Run type check
+      inputs:
+          command: custom
+          workingDir: /
+          customCommand: run check
+
+    - task: Npm@1
       displayName: Run format check
       inputs:
           command: custom
