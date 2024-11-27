@@ -26,6 +26,7 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noUncheckedIndexedAccess": true,
+        "types": ["node"]
     },
     "include": ["src/", "vite-env.d.ts"],
     "references": [{ "path": "./tsconfig.node.json" }]

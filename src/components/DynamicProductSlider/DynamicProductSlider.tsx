@@ -22,9 +22,10 @@ export const DynamicProductSlider: React.FC<DynamicProductSliderProps> = ({
     >(null)
 
     React.useEffect(() => {
-        ;(async (): Promise<void> => {
+        void (async (): Promise<void> => {
             if (products === null) {
-                return setProductInfo(null)
+                setProductInfo(null)
+                return
             }
 
             const result = await searchProducts({

@@ -31,12 +31,12 @@ export const DamVideo: React.FC<DamVideoProps> = (props) => {
 
     const objectPositionX =
         typeof props.videoPosition?.x === 'number'
-            ? `${props.videoPosition.x}%`
+            ? `${String(props.videoPosition.x)}%`
             : 'initial'
 
     const objectPositionY =
         typeof props.videoPosition?.y === 'number'
-            ? `${props.videoPosition.y}%`
+            ? `${String(props.videoPosition.y)}%`
             : 'initial'
 
     const video = (

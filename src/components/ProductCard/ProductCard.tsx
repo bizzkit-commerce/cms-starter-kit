@@ -20,7 +20,7 @@ export const ProductCard: React.FC<ProductCardProps> = (props) => {
 
         const productId = props.product
 
-        ;(async () => {
+        void (async () => {
             setProduct(await getProductById(productId))
         })()
     }, [props.product])

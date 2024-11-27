@@ -35,7 +35,7 @@ export const ProductCatalogue: React.FC<ProductCatalogueProps> = ({
     const phraseFilter = React.useDeferredValue(
         // Use phrase set it the plugin if provided, otherwise use
         // search field value
-        products?.phrase === undefined || products?.phrase === ''
+        products?.phrase === undefined || products.phrase === ''
             ? phraseInputValue
             : products.phrase,
     )
@@ -58,7 +58,7 @@ export const ProductCatalogue: React.FC<ProductCatalogueProps> = ({
     React.useEffect(() => {
         const abortController = new AbortController()
 
-        ;(async (): Promise<void> => {
+        void (async (): Promise<void> => {
             if (products === undefined || products === null) return
 
             setLoading(true)
@@ -134,7 +134,7 @@ export const ProductCatalogue: React.FC<ProductCatalogueProps> = ({
                     // Hide search input if search phrase has been provided
                     // by the plugin
                     (products?.phrase === undefined ||
-                        products?.phrase === '') && (
+                        products.phrase === '') && (
                         <TextField
                             label='Search'
                             value={phraseFilter}
@@ -213,11 +213,11 @@ export const ProductCatalogue: React.FC<ProductCatalogueProps> = ({
 
                 {searchResult?.products.map((product, index) => {
                     const imageUrl =
-                        product?.media?.find((media) => media.type === 'Image')
+                        product.media?.find((media) => media.type === 'Image')
                             ?.url ?? undefined
 
                     const lowestPrice =
-                        (product?.skus ?? [])
+                        (product.skus ?? [])
                             .flatMap((sku) =>
                                 typeof sku.price?.price === 'number'
                                     ? [sku.price.price]
@@ -226,7 +226,7 @@ export const ProductCatalogue: React.FC<ProductCatalogueProps> = ({
                             .sort()
                             .at(0) ?? undefined
 
-                    const combinedStock = (product?.skus ?? [])
+                    const combinedStock = (product.skus ?? [])
                         .flatMap(
                             (sku) => sku.numberAttributes?.Stock?.values ?? [],
                         )

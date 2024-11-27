@@ -10,7 +10,10 @@ import { theme } from './util/theme'
 
 initBuilder()
 
-const root = ReactClient.createRoot(document.getElementById('main')!)
+const rootElement = document.getElementById('main')
+if (rootElement === null) throw new Error('Root element not found')
+
+const root = ReactClient.createRoot(rootElement)
 
 root.render(
     <ThemeProvider theme={theme}>

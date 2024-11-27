@@ -10,20 +10,21 @@ export interface SeoMetadataProps {
 export const SeoMetadata: React.FC<SeoMetadataProps> = ({ content }) => {
     if (content === undefined) return null
 
-    const description: null | string = content.data?.['description'] ?? null
+    const description = content.data?.['description'] as string | null
 
-    const keywords: string[] = content.data?.['keywords'] ?? []
+    const keywords = (content.data?.['keywords'] as string[] | null) ?? []
 
-    const openGraphTitle: null | string =
-        content.data?.['openGraphTitle'] ?? null
+    const openGraphTitle = content.data?.['openGraphTitle'] as string | null
 
-    const openGraphDescription: null | string =
-        content.data?.['openGraphDescription'] ?? null
+    const openGraphDescription = content.data?.['openGraphDescription'] as
+        | string
+        | null
 
-    const openGraphImage: null | DamFile =
-        content.data?.['openGraphDescription'] ?? null
+    const openGraphImage = content.data?.[
+        'openGraphDescription'
+    ] as DamFile | null
 
-    let robots = []
+    const robots = []
 
     if (content.data?.['noIndex'] === true) {
         robots.push('noindex')
@@ -39,7 +40,7 @@ export const SeoMetadata: React.FC<SeoMetadataProps> = ({ content }) => {
                 <meta name='description' content={description} />
             )}
             {keywords.length > 0 && (
-                <meta name='keywords' content={keywords?.join(',')} />
+                <meta name='keywords' content={keywords.join(',')} />
             )}
             {robots.length > 0 && (
                 <meta name='robots' content={robots.join(',')} />
