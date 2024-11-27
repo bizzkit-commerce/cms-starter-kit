@@ -95,7 +95,7 @@ export const ProductSliderBase: React.FC<ProductSliderBaseProps> = ({
                 }}
             >
                 {loading &&
-                    Array.from(Array(skeletonCount ?? 6)).map((_, index) => (
+                    Array.from(Array(skeletonCount)).map((_, index) => (
                         <ProductCardBase
                             key={index}
                             loading={true}
@@ -106,12 +106,12 @@ export const ProductSliderBase: React.FC<ProductSliderBaseProps> = ({
                 {!loading &&
                     products.map((product, index) => {
                         const imageUrl =
-                            product?.media?.find(
+                            product.media?.find(
                                 (media) => media.type === 'Image',
                             )?.url ?? undefined
 
                         const lowestPrice =
-                            (product?.skus ?? [])
+                            (product.skus ?? [])
                                 .flatMap((sku) =>
                                     typeof sku.price?.price === 'number'
                                         ? [sku.price.price]
@@ -120,7 +120,7 @@ export const ProductSliderBase: React.FC<ProductSliderBaseProps> = ({
                                 .sort()
                                 .at(0) ?? undefined
 
-                        const combinedStock = (product?.skus ?? [])
+                        const combinedStock = (product.skus ?? [])
                             .flatMap(
                                 (sku) =>
                                     sku.numberAttributes?.Stock?.values ?? [],

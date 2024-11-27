@@ -36,9 +36,9 @@ export const DamImage: React.FC<DamImageProps> = (props) => {
                   // Using DAM's built-in transformation sizes for convenience:
                   // https://docs.bizzkit.com/dam/concepts/#transformations
                   srcSet: `
-                      ${getDamImageUrl(props.image, '_small-preview')} ${theme.breakpoints.values.sm}w,
-                      ${getDamImageUrl(props.image, '_medium-preview')} ${theme.breakpoints.values.md}w,
-                      ${getDamImageUrl(props.image, '_large-preview')} ${theme.breakpoints.values.lg}w
+                      ${getDamImageUrl(props.image, '_small-preview')} ${String(theme.breakpoints.values.sm)}w,
+                      ${getDamImageUrl(props.image, '_medium-preview')} ${String(theme.breakpoints.values.md)}w,
+                      ${getDamImageUrl(props.image, '_large-preview')} ${String(theme.breakpoints.values.lg)}w
                   `,
                   sizes: '100vw',
                   alt: props.altText ?? undefined,
@@ -49,12 +49,12 @@ export const DamImage: React.FC<DamImageProps> = (props) => {
 
     const objectPositionX =
         typeof props.imagePosition?.x === 'number'
-            ? `${props.imagePosition.x}%`
+            ? `${String(props.imagePosition.x)}%`
             : 'initial'
 
     const objectPositionY =
         typeof props.imagePosition?.y === 'number'
-            ? `${props.imagePosition.y}%`
+            ? `${String(props.imagePosition.y)}%`
             : 'initial'
 
     const image = (

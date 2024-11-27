@@ -9,17 +9,17 @@ export const Header: React.FC = () => {
 
     React.useEffect(() => {
         async function fetchUsp(): Promise<void> {
-            const header: undefined | BuilderContent = await builder
+            const header = (await builder
                 .get('header', {
                     url: window.location.pathname,
                 })
-                .promise()
+                .promise()) as undefined | BuilderContent
 
             setHeader(header)
             setNotFound(header === undefined)
         }
 
-        fetchUsp()
+        void fetchUsp()
     }, [])
 
     if (header === undefined)

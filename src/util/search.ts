@@ -87,8 +87,8 @@ export const getProductById = async (
         throw new Error(response.statusText)
     }
 
-    const result: { products?: Product[] } = await response.json()
-    const product = result?.products?.at(0) ?? null
+    const result = (await response.json()) as { products?: Product[] }
+    const product = result.products?.at(0) ?? null
 
     return product
 }
@@ -170,26 +170,7 @@ export const searchProducts = async (params: {
     url.searchParams.append('api-version', '24.0')
 
     const filters = Object.fromEntries(
-        (params.filters ?? []).map((filter) => {
-            switch (filter.type) {
-                case FilterType.RangeFilter:
-                    return [
-                        filter.key,
-                        {
-                            from: filter.from,
-                            to: filter.to,
-                        },
-                    ]
-
-                case FilterType.TermFilter:
-                    return [
-                        filter.key,
-                        {
-                            values: filter.values,
-                        },
-                    ]
-            }
-        }),
+        (params.filters ?? []).map(mapFilterModelToSearchFilterModel),
     )
 
     const response = await fetch(url, {
@@ -214,7 +195,30 @@ export const searchProducts = async (params: {
         throw new Error(response.statusText)
     }
 
-    const result: SearchResult = await response.json()
+    const result = (await response.json()) as SearchResult
 
     return result
+}
+
+const mapFilterModelToSearchFilterModel = (
+    filter: FilterModel,
+): [string, Record<string, number | readonly string[]>] => {
+    switch (filter.type) {
+        case FilterType.RangeFilter:
+            return [
+                filter.key,
+                {
+                    from: filter.from,
+                    to: filter.to,
+                },
+            ]
+
+        case FilterType.TermFilter:
+            return [
+                filter.key,
+                {
+                    values: filter.values,
+                },
+            ]
+    }
 }

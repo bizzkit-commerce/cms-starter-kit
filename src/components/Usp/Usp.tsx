@@ -12,22 +12,24 @@ interface UspModel {
 }
 
 export const Usp: React.FC = () => {
-    const [usp, setUsp] = React.useState<UspModel | null>(null)
+    const [usp, setUsp] = React.useState<UspModel | undefined>()
 
     React.useEffect(() => {
         async function fetchUsp(): Promise<void> {
-            const usp = (await builder.get('usp').promise()) as UspModel
+            const usp = (await builder.get('usp').promise()) as
+                | UspModel
+                | undefined
 
             setUsp(usp)
         }
 
-        fetchUsp()
+        void fetchUsp()
     }, [])
 
-    if (usp === null)
+    if (usp === undefined)
         return <Skeleton variant='rectangular' height={36} width='100%' />
 
-    if (usp === undefined || usp.data.items.length === 0) return null
+    if (usp.data.items.length === 0) return null
 
     return (
         <Box

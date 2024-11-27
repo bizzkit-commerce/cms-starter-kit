@@ -13,18 +13,18 @@ export const Page: React.FC = () => {
 
     React.useEffect(() => {
         async function fetchContent(): Promise<void> {
-            const content: undefined | BuilderContent = await builder
+            const content = (await builder
                 .get('page', {
                     url: window.location.pathname,
                 })
-                .promise()
+                .promise()) as undefined | BuilderContent
 
             setContent(content)
             setNotFound(content === undefined)
         }
 
         void fetchContent()
-    }, [window.location.pathname])
+    }, [])
 
     return (
         <>

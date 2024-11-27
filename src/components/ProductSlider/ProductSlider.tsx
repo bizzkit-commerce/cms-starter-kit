@@ -16,9 +16,10 @@ export const ProductSlider: React.FC<ProductSliderProps> = ({
     >(null)
 
     React.useEffect(() => {
-        ;(async (): Promise<void> => {
+        void (async (): Promise<void> => {
             if (products === null) {
-                return setProductInfo(null)
+                setProductInfo(null)
+                return
             }
 
             setProductInfo(await getProductsById(products))

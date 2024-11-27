@@ -6,14 +6,14 @@ export interface DamFile {
 
 export const getDamImageUrl = (
     image: DamFile,
-    transformationId: string = '_original',
+    transformationId = '_original',
 ): string => {
     const damUrl = import.meta.env.VITE_DAM_URL
     const fileOrCroppingId = image.croppingId ?? image.fileId
 
     const fileName = encodeURIComponent(
         // Extract filename without extension from filePath
-        image.filePath?.match(/([^/\.]+)\.?\w*$/)?.at(1) ?? 'image',
+        image.filePath?.match(/([^/.]+)\.?\w*$/)?.at(1) ?? 'image',
     )
 
     const url = new URL(
