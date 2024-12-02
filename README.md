@@ -66,11 +66,15 @@ Similar to `ProductSlider` except for the products being provided from a query i
 
 Sections allows you to create reusable content across multiple pages, such as a header. They can be targeted just like pages. For more detail, see Builder's [docs](https://www.builder.io/c/docs/integrate-section-building).
 
+The example requires a section content model set up, called Header. The model has no fields.
+
 [Go to source](./src/components/Header/Header.tsx)
 
 ## Structured data
 
 Structured data is another way of working with Content in Builder. In short, it enables you to store reusable data in Builder without constraining it to a specific design or page. For more detail, see Builder's [docs](https://www.builder.io/c/docs/integrate-cms-data) or [explanation](https://www.builder.io/m/explainers/structured-data).
+
+The example requires a structured data content model set up, called USP. The model should have a single field, `items` of type List - with two fields on an item, `label` of type Text and `link` of type Url.
 
 [Go to source](./src/components/Usp/Usp.tsx)
 
@@ -99,5 +103,16 @@ The project exports the theme values used with Material UI into [Builder design 
 ## SEO
 
 Some basic search engine optimizations can be achieved by adding the appropriate [meta tags](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta) to the `<head>` element, such as description, keywords and open graph fields. This example extends the `Page` model in Builder with these fields that can be populated by content creators themselves, which then are rendered using the `<SeoMetadata>` component.
+
+The example requires a page content model set up, called Page. The model should have the following fields:
+
+- `title` of type Text
+- `description` of type Long text
+- `keywords` of type Tags
+- `noIndex` of type Boolean
+- `noFollow` of type Boolean
+- `openGraphTitle` of type Text
+- `openGraphDescription` of type Text
+- `openGraphImage` of type Bizzkit dam file (see previous section of [components](#components))
 
 [Go to source](./src/components/SeoMetadata/index.ts)
