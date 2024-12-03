@@ -5,7 +5,7 @@ import React from 'react'
 interface UspModel {
     data: {
         items: {
-            text: string
+            label: string
             link: string
         }[]
     }
@@ -66,7 +66,7 @@ export const Usp: React.FC = () => {
                             href={item.link}
                             sx={{ textDecoration: 'none' }}
                         >
-                            {item.text}
+                            {item.label}
                         </Link>
                     </Box>
                 ))}
