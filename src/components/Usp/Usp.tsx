@@ -5,13 +5,14 @@ import React from 'react'
 interface UspModel {
     data: {
         items: {
-            label: string
-            link: string
+            label?: string
+            link?: string
         }[]
     }
 }
 
 export const Usp: React.FC = () => {
+    const [notFound, setNotFound] = React.useState(false)
     const [usp, setUsp] = React.useState<UspModel | undefined>()
 
     React.useEffect(() => {
@@ -21,15 +22,17 @@ export const Usp: React.FC = () => {
                 | undefined
 
             setUsp(usp)
+            setNotFound(usp === undefined)
         }
 
         void fetchUsp()
     }, [])
 
-    if (usp === undefined)
+    if (usp === undefined) {
         return <Skeleton variant='rectangular' height={36} width='100%' />
+    }
 
-    if (usp.data.items.length === 0) return null
+    if (notFound || usp.data.items.length === 0) return null
 
     return (
         <Box
@@ -66,7 +69,7 @@ export const Usp: React.FC = () => {
                             href={item.link}
                             sx={{ textDecoration: 'none' }}
                         >
-                            {item.label}
+                            {item.label ?? '{label}'}
                         </Link>
                     </Box>
                 ))}

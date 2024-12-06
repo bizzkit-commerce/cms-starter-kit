@@ -10,19 +10,24 @@ export interface SeoMetadataProps {
 export const SeoMetadata: React.FC<SeoMetadataProps> = ({ content }) => {
     if (content === undefined) return null
 
-    const description = content.data?.['description'] as string | null
+    const description =
+        (content.data?.['description'] as string | null | undefined) ?? null
 
-    const keywords = (content.data?.['keywords'] as string[] | null) ?? []
+    const keywords =
+        (content.data?.['keywords'] as string[] | null | undefined) ?? []
 
-    const openGraphTitle = content.data?.['openGraphTitle'] as string | null
+    const openGraphTitle =
+        (content.data?.['openGraphTitle'] as string | null) ?? null
 
-    const openGraphDescription = content.data?.['openGraphDescription'] as
-        | string
-        | null
+    const openGraphDescription =
+        (content.data?.['openGraphDescription'] as string | null | undefined) ??
+        null
 
-    const openGraphImage = content.data?.[
-        'openGraphDescription'
-    ] as DamFile | null
+    const openGraphImage =
+        (content.data?.['openGraphDescription'] as
+            | DamFile
+            | null
+            | undefined) ?? null
 
     const robots = []
 
