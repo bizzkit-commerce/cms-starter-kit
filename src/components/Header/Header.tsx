@@ -34,16 +34,14 @@ export const Header: React.FC = () => {
                 overflow: 'hidden',
             }}
         >
-            <Container>
-                {notFound && (
+            {notFound && (
+                <Container>
                     <Typography variant='h1'>
                         Bizzkit CMS Starter Kit
                     </Typography>
-                )}
-                {!notFound && (
-                    <BuilderComponent model='header' content={header} />
-                )}
-            </Container>
+                </Container>
+            )}
+            {!notFound && <BuilderComponent model='header' content={header} />}
         </Box>
     )
 }
