@@ -3,7 +3,6 @@ import { BuilderContent } from '@builder.io/sdk'
 import { Typography } from '@mui/material'
 import Container from '@mui/material/Container'
 import * as React from 'react'
-import { Helmet } from 'react-helmet-async'
 import { SeoMetadata } from '../SeoMetadata'
 
 export const Page: React.FC = () => {
@@ -29,11 +28,9 @@ export const Page: React.FC = () => {
     return (
         <>
             <SeoMetadata content={content} />
-            <Helmet>
-                <title>
-                    {content?.data?.['title'] ?? 'Bizzkit CMS Starter Kit'}
-                </title>
-            </Helmet>
+            <title>
+                {content?.data?.['title'] ?? 'Bizzkit CMS Starter Kit'}
+            </title>
             <Container>
                 {notFound && !isPreviewingInBuilder && (
                     <Typography variant='body1'>Not found</Typography>

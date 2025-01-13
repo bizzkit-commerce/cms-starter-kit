@@ -1,7 +1,6 @@
 import { GlobalStyles, ThemeProvider } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline'
 import * as ReactClient from 'react-dom/client'
-import { HelmetProvider } from 'react-helmet-async'
 import { CssVariables } from './components/CssVariables'
 import { Layout } from './components/Layout'
 import { Page } from './components/Page'
@@ -30,10 +29,8 @@ root.render(
             }}
         />
         <CssVariables />
-        <HelmetProvider>
-            <Layout>
-                <Page />
-            </Layout>
-        </HelmetProvider>
+        <Layout>
+            <Page />
+        </Layout>
     </ThemeProvider>,
 )
