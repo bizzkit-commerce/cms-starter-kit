@@ -1,6 +1,5 @@
 import { BuilderContent } from '@builder.io/sdk'
 import * as React from 'react'
-import { Helmet } from 'react-helmet-async'
 import { DamFile, getDamImageUrl } from '../../util/dam'
 
 export interface SeoMetadataProps {
@@ -40,7 +39,7 @@ export const SeoMetadata: React.FC<SeoMetadataProps> = ({ content }) => {
     }
 
     return (
-        <Helmet>
+        <>
             {description !== null && (
                 <meta name='description' content={description} />
             )}
@@ -65,6 +64,6 @@ export const SeoMetadata: React.FC<SeoMetadataProps> = ({ content }) => {
                     content={getDamImageUrl(openGraphImage)}
                 />
             )}
-        </Helmet>
+        </>
     )
 }
